@@ -1,3 +1,5 @@
+// character counter for tweet entered
+
 const CharacterLimit = 280;
 
 let tweetCharacters = window.prompt("Type your tweet here (character limit is 280)").length;
