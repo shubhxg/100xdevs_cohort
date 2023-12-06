@@ -1,3 +1,5 @@
+// swap 2 variables using third one
+
 let a = 5, b = 10;
 
 console.log(`before swapping \na = ${a} and b = ${b}`);
