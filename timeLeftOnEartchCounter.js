@@ -11,7 +11,7 @@ if(isNaN(yourAge) || yourAge <= 0 || yourAge > 75 ) {
     leftTime = lifeInWeeks(averageAgeofHuman, yourAge);
 }
 
-alert(`You have ${leftTime[0]} in years, ${leftTime[1]} in months, ${leftTime[2]} in weeks and ${leftTime[3]} in days left.`);
+alert(`You have ${leftTime[0]} in years, ${leftTime[1]} in months, ${leftTime[2]} in weeks and ${leftTime[3]} in days left on earth.`);
 
 function lifeInWeeks(averageAgeofHuman, yourAge) {
     
@@ -23,4 +23,3 @@ function lifeInWeeks(averageAgeofHuman, yourAge) {
     // returns an array of years, months, weeks and days left
     return new Array(yearsLeft, monthsLeft, weeksLeft, daysLeft);
 }
-
