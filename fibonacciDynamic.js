@@ -12,8 +12,8 @@ function fibonacciGenerator(n) {
     } else {
        let array = [0,1];
 
-        // looping from third position that is i = 2 and then pushing sum of values at i-1 and i-2
-        // This is Dynamic approach called Tabulation or Bottom up approach
+        // looping from third position till nth and pushing the value with the help of index which starts from back of 
+        // array which is i - 1 and i - 2
         for(var i = 2; i < n; i++) {
             array.push(array[i-1] + array[i-2]);
         }
