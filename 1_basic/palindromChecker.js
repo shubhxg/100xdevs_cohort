@@ -8,7 +8,7 @@ function isPalindrome(str) {
   // replaces all the punctuations from string with ""
   str = str.replace(/[.,?\/#!$%\^&\*;:{}=\-_`~()\s]/g, "");
 
-  var reversedStr = [];
+  let reversedStr = [];
   
   for (let i = str.length-1; i >= 0; i--) {
     reversedStr.push(str[i].toLowerCase())
