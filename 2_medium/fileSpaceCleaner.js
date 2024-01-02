@@ -1,3 +1,6 @@
+// reads a file and cleans all the un-wanted spaces from the sentences.
+// week 2 of 100xdevs cohort assignment medium
+
 const fs = require('fs');
 const path = require('path');
 
