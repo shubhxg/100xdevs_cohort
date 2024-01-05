@@ -1,0 +1,15 @@
+{
+  "name": "silly_name_generator",
+  "version": "1.0.0",
+  "description": "sillyname generate",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shubh Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "sillyname": "^0.1.0"
+  }
+}
