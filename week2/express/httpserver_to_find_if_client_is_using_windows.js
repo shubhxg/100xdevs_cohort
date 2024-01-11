@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
       const data = req.rawHeaders;
 
       // this line checks if the data sent by the browser has word Windows in it or not.
-      // first turned the object into a string then splitted the words into an array and then checked if array has Windows.
-    const isWindowsUser = JSON.stringify(data).split(" ").includes("Windows");
+      // first turned the object into a string then checked if it has Windows word in it.
+    const isWindowsUser = JSON.stringify(data).includes("Windows");
     console.log(isWindowsUser ? "Yes" : "No");
 })
