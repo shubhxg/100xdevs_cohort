@@ -1,8 +1,8 @@
-// npm init -y; npm install express body-parser, "type": "module"
+// npm init -y; npm install express, "type": "module"
 // using postman to send requests
 
 import express from 'express';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser'; no need 
 const app = express();
 const port = 3000;
 
@@ -14,7 +14,8 @@ const users = [{
 }]
 
 // middleware to intercept body data
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json())
 
 // return how many kidneys user have and their health
 app.get('/', (req, res) => {
