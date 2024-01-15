@@ -54,10 +54,15 @@ app.post('/', (req, res) => {
     res.json({ msg: "New Kidney Added Successfully!" });
 })
 
-// User can replace a kidney, makes it healthy
-// app.put('/', (req, res) => {
+// User can replace a kidney, makes kidneys healthy
+app.put("/", (req, res) => {
+  for (let i = 0; i < users[0].kidneys.length; i++) {
+    users[0].kidneys[i].healthy = true;
+  }
 
-// })
+  res.json({"msg": "All kidneys fixed!"});
+});
+
 
 // Remove a kidney 
 app.delete('/', (req, res) => {
