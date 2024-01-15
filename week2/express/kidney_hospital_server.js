@@ -2,7 +2,7 @@
 // using postman to send requests
 
 import express from 'express';
-// import bodyParser from 'body-parser'; no need 
+// import bodyParser from 'body-parser';
 const app = express();
 const port = 3000;
 
@@ -64,14 +64,20 @@ app.put("/", (req, res) => {
 });
 
 
-// Remove a kidney 
-app.delete('/', (req, res) => {
-    if(!users[0].kidneys.length) {
-        res.json({msg: "No kidneys available!"});
-    } else {
-        users[0].kidneys.pop();
-        res.json({ msg: "Deleted a kidney successfully!" });
+// Remove unhealthy kidneys
+app.delete("/", (req, res) => {
+  if (!users[0].kidneys.length) {
+    res.json({ msg: "No kidneys available!" });
+  } else {
+    const newKidneys = [];
+    for (let i = 0; i < users[0].kidneys.length; i++) {
+      if (users[0].kidneys[i].healthy) {
+        newKidneys.push({ healthy: true });
+      }
     }
-})
+    users[0].kidneys = newKidneys;
+    res.json({ msg: "Deleted unhealthy kidneys successfully!" });
+  }
+});
 
 app.listen(port);
