@@ -5,8 +5,6 @@ import express from 'express';
 // import bodyParser from 'body-parser';
 const app = express();
 const port = 3000;
-
-// mini database of user with kidneys
 const users = [{
     userName: "john",
     age: 22,
@@ -24,19 +22,19 @@ app.get('/', (req, res) => {
 
     // finding only healthy kidneys
     let numberOfHealthyKidneys = 0;
-    for(let i = 0; i < johnKidneys.length; i++) {
-        if(johnKidneys[i].healthy) {
+    for (let i = 0; i < johnKidneys.length; i++) {
+        if (johnKidneys[i].healthy) {
             ++numberOfHealthyKidneys;
-        } 
-    }    
+        }
+    }
 
     // number of unhealthy kidneys
     const numberOfUnhealthyKidneys = numberOfJohnKidneys - numberOfHealthyKidneys;
 
     // sending response in form of json
     res.json({
-        numberOfJohnKidneys, 
-        numberOfHealthyKidneys, 
+        numberOfJohnKidneys,
+        numberOfHealthyKidneys,
         numberOfUnhealthyKidneys
     })
 })
@@ -54,30 +52,47 @@ app.post('/', (req, res) => {
     res.json({ msg: "New Kidney Added Successfully!" });
 })
 
-// User can replace a kidney, makes kidneys healthy
+// User can replace a kidney, makes all kidneys healthy
 app.put("/", (req, res) => {
-  for (let i = 0; i < users[0].kidneys.length; i++) {
-    users[0].kidneys[i].healthy = true;
-  }
-
-  res.json({"msg": "All kidneys fixed!"});
+    if(users[0].kidneys.length) {
+        if(atleast1UnhealthyKidneyChecker()) {
+            for (let i = 0; i < users[0].kidneys.length; i++) {
+                users[0].kidneys[i].healthy = true; 
+            }
+        } else {
+            res.status(411).json({ msg: "All kidneys are healthy!" });
+        }
+        res.json({ "msg": "All kidneys fixed!" });
+    } else {
+        res.status(411).json({msg: "There are no kidneys inside you!"})
+    }
 });
-
 
 // Remove unhealthy kidneys
 app.delete("/", (req, res) => {
-  if (!users[0].kidneys.length) {
-    res.json({ msg: "No kidneys available!" });
-  } else {
-    const newKidneys = [];
-    for (let i = 0; i < users[0].kidneys.length; i++) {
-      if (users[0].kidneys[i].healthy) {
-        newKidneys.push({ healthy: true });
-      }
+    // atleast one unhealthy kidney should be there
+    if (atleast1UnhealthyKidneyChecker()) {
+        const newKidneys = [];
+        for (let i = 0; i < users[0].kidneys.length; i++) {
+            if (users[0].kidneys[i].healthy) {
+                newKidneys.push({ healthy: true });
+            }
+        }
+        users[0].kidneys = newKidneys;
+        res.json({ msg: "Deleted unhealthy kidneys successfully!" });
+    } else {
+        res.status(411).json({ msg: "You have no bad kidneys!" });
     }
-    users[0].kidneys = newKidneys;
-    res.json({ msg: "Deleted unhealthy kidneys successfully!" });
-  }
 });
 
+function atleast1UnhealthyKidneyChecker() {
+    let atleastOneUnHealthyKidney = false;
+    for (let i = 0; i < users[0].kidneys.length; i++) {
+        if (!users[0].kidneys[i].healthy) {
+            atleastOneUnHealthyKidney = true;
+            break;
+        }
+    }
+    return atleastOneUnHealthyKidney;
+}
 app.listen(port);
