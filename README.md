@@ -7,6 +7,7 @@ Repo contains all the learnings from the cohort, assignments and other practice 
 ### Week 2
 - **Async JS Revision**
   - Callbacks, Promises, Async/Await
+  - map() and filter() methods
 - **Nodejs**
   - importing modules using `require(””)` (CJS) and `import _ from “module”` (ESM) 
   - modules
