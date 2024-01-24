@@ -1,10 +1,10 @@
-## 100xdevs cohort 
+# 100xdevs cohort 
 Repo contains all the learnings from the cohort, assignments and other practice code.
 
-### Week 0 and 1
+## Week 0 and 1
 - Basic foundations of JS
 - Async JS and Promises
-### Week 2
+## Week 2
 - **Async JS Revision**
   - Callbacks, Promises, Async/Await
   - map() and filter() methods
@@ -25,4 +25,6 @@ Repo contains all the learnings from the cohort, assignments and other practice 
   - accessing data from the body -> `req.body`
   - need of `express.json()`
   - `res.send, res.json`
-  - middlewares and their needs
+ 
+## Week 3
+- MongoDB and Postgress Installation
