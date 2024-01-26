@@ -4,6 +4,7 @@ Repo contains all the learnings from the cohort, assignments and other practice 
 ## Week 0 and 1
 - Basic foundations of JS
 - Async JS and Promises
+
 ## Week 2
 - **Async JS Revision**
   - Callbacks, Promises, Async/Await
@@ -28,3 +29,11 @@ Repo contains all the learnings from the cohort, assignments and other practice 
  
 ## Week 3
 - MongoDB and Postgress Installation
+- Middlewares, working with middlewares
+- `next()` and use of it
+- Error based middlewares
+- Prechecks
+  - Auth
+  - Input validation
+- Global catch: `app.use((err, req, res, next))`
+- Zod library for input validation
