@@ -4,10 +4,12 @@ import { generateName } from 'sillyname'
 const arrOfNames = [];
 const numberOfNames = 10;
 
-// generates an array of random names from sillyname module using genName();
-for(let i = 0; i < numberOfNames; i++) {
-    const randomName = generateName();
-    arrOfNames.push(randomName);
+function randomGenerate(n) {
+    for(let i = 0; i < n; i++) {
+        const randomName = generateName();
+        arrOfNames.push(randomName);
+    } 
+    return randomName;
 }
 
-console.log(arrOfNames);
+console.log(randomGenerate(numberOfNames));
