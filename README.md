@@ -7,7 +7,7 @@ Repo contains all the learnings from the cohort, assignments and other practice 
 
 ## Week 2
 - **Async JS Revision**
-  - Callbacks, Promises, Async/Await
+  - callbacks, promises, async/await
   - map() and filter() methods
 - **Nodejs**
   - importing modules using `require(””)` (CJS) and `import _ from “module”` (ESM) 
@@ -28,12 +28,13 @@ Repo contains all the learnings from the cohort, assignments and other practice 
   - `res.send, res.json`
  
 ## Week 3
-- MongoDB and Postgress Installation
-- Middlewares, working with middlewares
+- mongoDB and postgress installation
+- middlewares, working with middlewares
 - `next()` and use of it
-- Error based middlewares
-- Prechecks
+- error based middlewares
+- making a rate limiter using custom middleware
+- prechecks
   - Auth
   - Input validation
-- Global catch: `app.use((err, req, res, next))`
-- Zod library for input validation
+- global catch: `app.use((err, req, res, next))`
+- zod library for input validation
