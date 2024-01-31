@@ -38,7 +38,7 @@ Repo contains all the learnings from the cohort, assignments and other practice 
   - Input validation
 - global catch: `app.use((err, req, res, next))`
 - [zod](https://zod.dev/) library for input validation
-- Fetch API => `fetch('URL', { method: 'POST', .... })`
-- Hashing, Encryption, JWT, Local storage
-- Using JWT for Auth
-- Database Introduction
+- fetch API => `fetch('URL', { method: 'POST', .... })`
+- hashing, encryption, jwt, local storage
+- using jwt for Auth
+- database introduction
