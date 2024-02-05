@@ -1,44 +1,44 @@
-// Assignment: API which has 2 endpoints: /login /users
-// body should contain username and password to /login 
-// sends back dummy data to the user
-
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const { z } = require('zod');
+// task 1 = create new endpoint for /signup ✅
+// task 2 = make it so users can signup and a new token is generated for them ✅
+// task 3 = make the data save into mongo db ✅
+// task 4 = make signin possible with token ✅
+// task 5 = if user doesnt exist return error ✅
+import express from "express";
+import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
+import { z } from "zod";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const port = 3000;
-const jwtPass = '12345';
+const PORT = 3000;
 
-// dummy data
-const USERSDATA = [
-  {
-    username: "silentknight",
-    password: "god123",
-    fullname: "aman trivedi",
-  },
-  {
-    username: "johndoe",
-    password: "123123",
-    fullname: "john doe",
-  },
-  {
-    username: "sumitbhai123",
-    password: "sumit123",
-    fullname: "sumit kumar",
-  },
-  {
-    username: "shubhsig",
-    password: "shubh12",
-    fullname: "shubh sharma",
-  }
-]
+mongoose
+  // Mongo connection string in .env file
+  .connect(process.env.URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch(() => {
+    console.log("Could not connect to MongoDB");
+  });
 
-// schema for input validation
-const loginInputSchema = z.object({
+// schema
+const usersSchema = new mongoose.Schema({
+  username: String,
+  email: String,
+  password: String,
+});
+
+// model based on the schema
+const Users = mongoose.model("users", usersSchema);
+
+// zod schema
+const schema = z.object({
   body: z.object({
-    username: z.string().min(6),
-    password: z.string().min(6),
+    username: z.string(),
+    email: z.string().endsWith("@gmail.com") || z.string().endsWith(".com"),
+    password: z.string().min(8),
   }),
 });
 
@@ -49,64 +49,89 @@ const validateUserInput = (schema) => (req, res, next) => {
     next();
   } catch (err) {
     return res.status(400).json({
-      error: err
+      error: err,
     });
   }
-}
+};
 
-app.use(express.json(), validateUserInput(loginInputSchema));
+app.use(express.json(), validateUserInput(schema));
 
-// function to find if the user exists or not
-const userexists = (username, password) => {
-  return USERSDATA.find(user =>
-    user.username === username &&
-    user.password === password);
-}
+app.post("/signup", async (req, res) => {
+  const { username, email, password } = req.body;
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  
-  if (!userexists(username, password)) {
+  if (await userExists(email)) {
     return res.status(403).json({
-      message: "Wrong username or password!"
-    })
+      msg: "Account already exists, please sign in!",
+    });
+  }
+  // create a new user
+  createUser(username, email, password);
+  const token = jwt.sign({ email }, jwtPass);
+  // sending token to the user
+  return res.status(200).json({
+    message: "Signup successful!",
+    token,
+  });
+});
+
+app.post("/login", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!(await userExists(email))) {
+    return res.status(403).json({
+      message: "Wrong username or password!",
+    });
   } else {
-    // token creation 
-    const token = jwt.sign({ username }, jwtPass);
+    // token creation
+    const token = jwt.sign({ email }, jwtPass);
     // sending token to the user
     return res.status(200).json({
       message: "LoggedIn successfully!",
-      token
+      token,
     });
   }
-})
+});
 
-app.get('/users', (req, res) => {
+app.get("/users", (req, res) => {
   // getting the token from the user
   const token = req.headers.authorization;
   try {
     // verification of user
     const decoded = jwt.verify(token, jwtPass);
-    const username = decoded.username;
-
-    // return list of users other than this user
-    const usersList = USERSDATA.filter(user => user.username !== username);
+    const username = decoded.email;
     return res.status(200).json({
       msg: "Welcome back " + req.body.username + "!",
-      usersList
     });
   } catch (err) {
     return res.status(403).json({
-      msg: "User not found or Invalid token"
+      msg: "User not found or Invalid token",
     });
   }
-})
+});
+
+// function to find if the user exists
+async function userExists(email) {
+  const user = await Users.findOne({ email: email});
+  return user !== null;
+}
+
+function createUser(username, email, password) {
+  const user = new Users({
+    username: username,
+    email: email,
+    password: password,
+  });
+  // save the user
+  user.save().then(() => console.log("Added User!"));
+}
 
 // global error handler
 app.use((err, req, res, next) => {
   res.status(500).json({
-    error: "Internal Server Error"
-  })
-})
+    error: "Internal Server Error",
+  });
+});
 
-app.listen(port);
+app.listen(PORT, () => {
+  console.log(`Server is running at 3000`);
+});
