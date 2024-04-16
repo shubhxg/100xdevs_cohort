@@ -42,3 +42,11 @@ Repo contains all the learnings from the cohort, assignments and other practice 
 - hashing, encryption, jwt, local storage
 - using jwt for Auth
 - database introduction
+
+## Week 4
+- DOM Manipulation
+  - accessing the elements
+  - manipulating the elements
+  - creating and editing the values of the elements
+- Debouncing and throttling: `delaying the execution of function for an event`
+- React Intro and it's need
