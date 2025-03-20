@@ -50,4 +50,4 @@ const newData = 123;
 ```
 
 ## Nature of Javascript
-JS is single threaded in nature, meaning that it can only execute one task at a time. This is why javascript is slow as well.
+JS is single threaded in nature, meaning that it can only execute one task at a time. This is why javascript is slow as well. 
